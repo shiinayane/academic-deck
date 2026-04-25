@@ -1,0 +1,20 @@
+{
+  "name": "academic-deck",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A quiet, reusable HTML presentation template for research group meetings.",
+  "type": "module",
+  "scripts": {
+    "validate": "node tests/validate-template.mjs && node tests/validate-mock-deck.mjs",
+    "validate:template": "node tests/validate-template.mjs",
+    "validate:example": "node tests/validate-mock-deck.mjs"
+  },
+  "keywords": [
+    "presentation",
+    "slides",
+    "html",
+    "academic",
+    "research"
+  ],
+  "license": "MIT"
+}

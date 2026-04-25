@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LabUtopia-HRC 周进展汇报</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="deck-shell">
+    <nav class="deck-toolbar" aria-label="Presentation controls">
+      <h1 class="deck-title">LabUtopia-HRC 周进展汇报</h1>
+      <div class="toolbar-actions">
+        <button class="toolbar-button" type="button" data-action="prev" aria-label="Previous slide">‹</button>
+        <span class="slide-count" id="slide-count">1 / 10</span>
+        <button class="toolbar-button" type="button" data-action="next" aria-label="Next slide">›</button>
+      </div>
+    </nav>
+
+    <div class="slides">
+      <section class="slide cover-slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Weekly Progress</span>
+            <span>LabUtopia-HRC / Group Meeting</span>
+          </div>
+          <div>
+            <h2 class="cover-title">LabUtopia-HRC 周进展汇报</h2>
+            <p class="cover-subtitle">从“实验室机器人助手”收敛到 safety-aware、clarification-capable、language-grounded 的协同 benchmark 与执行框架。</p>
+            <div class="status-grid" style="margin-top: 22px">
+              <div class="status-card"><strong>Done</strong>完成方向定位、相关工作地图、MVP 范围收敛</div>
+              <div class="status-card"><strong>Now</strong>设计 instruction schema、scene grounding、任务 split</div>
+              <div class="status-card"><strong>Next</strong>构建 50-100 episode prototype 和 evaluator skeleton</div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Presenter: LabUtopia-HRC draft</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">本周结论</span>
+            <span>Research framing</span>
+          </div>
+          <div class="two-column">
+            <div>
+              <h2 class="section-title">本周结论：不要先做“自主科学家”，先做可评估的人机协同闭环</h2>
+              <p class="section-subtitle">LabUtopia 的优势在于已有实验室任务层级、控制器接口和语言字段，可以承接上层自然指令，而不是重做底层环境。</p>
+              <div class="callout"><strong>Main takeaway</strong>第一阶段贡献应该绑定 benchmark + execution framework + baselines + failure analysis，避免被看成 LLM wrapper demo。</div>
+            </div>
+            <div class="rows">
+              <div class="row-card"><strong>保留</strong><span>语言指令、歧义澄清、安全拒绝、执行监控</span></div>
+              <div class="row-card"><strong>暂缓</strong><span>真实机器人部署、完整化学实验设计、VLA fine-tuning</span></div>
+              <div class="row-card"><strong>重点</strong><span>任务套件、schema、scene graph、evaluator、日志</span></div>
+              <div class="row-card"><strong>产物</strong><span>simulation-only MVP 和可复现实验报告</span></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>High-level decision</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">贡献边界</span>
+            <span>What is in / out</span>
+          </div>
+          <div>
+            <h2 class="section-title">贡献边界：把“自然语言协同”变成可测对象</h2>
+            <p class="section-subtitle">目标不是让机器人无所不能，而是回答自然指令、歧义、失败和安全约束如何进入实验室任务执行。</p>
+            <div class="matrix">
+              <div class="risk-cell ok"><strong>Benchmark</strong>固定场景、指令、任务模板、歧义/安全 split。</div>
+              <div class="risk-cell ok"><strong>Execution framework</strong>parser、grounding、skill registry、planner、monitor。</div>
+              <div class="risk-cell ok"><strong>Evaluation</strong>success、grounding、clarification、unsafe refusal、recovery。</div>
+              <div class="risk-cell open"><strong>Baseline</strong>rule/template、LLM-only、grounded LLM，后续再扩 SayCan-style。</div>
+              <div class="risk-cell risk"><strong>Out of scope</strong>不承诺真实湿实验安全，不做端到端通用机器人。</div>
+              <div class="risk-cell open"><strong>Open</strong>是否需要人工标注 skill plan oracle 作为上界。</div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Contribution scope</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">MVP 任务设计</span>
+            <span>Prototype task suite</span>
+          </div>
+          <div class="agenda-layout">
+            <div>
+              <h2 class="section-title">MVP 从小而完整的任务集开始</h2>
+              <p class="section-subtitle">优先覆盖实验室协同中最常见的自然指令模式，而不是追求任务数量。</p>
+              <div class="callout"><strong>Episode target</strong>2-3 个场景、8-12 个任务模板、50-100 个 episodes、30-50 条人工检查过的自然语言指令。</div>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item"><strong>Atomic</strong><span>pick beaker, open drawer, press device button</span></div>
+              <div class="timeline-item"><strong>Composite</strong><span>pick tube and place it on rack</span></div>
+              <div class="timeline-item"><strong>Cleanup</strong><span>move empty beakers to tray</span></div>
+              <div class="timeline-item"><strong>Ambiguous</strong><span>clean the beaker near the heater</span></div>
+              <div class="timeline-item"><strong>Unsafe</strong><span>discard unknown liquid without confirmation</span></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Task suite draft</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">系统结构</span>
+            <span>From instruction to execution log</span>
+          </div>
+          <div>
+            <h2 class="section-title">系统结构：LLM 负责高层语义，执行前必须经过 grounding 和 skill checks</h2>
+            <p class="section-subtitle">这样可以把每一步失败原因记录下来，也能形成可比较的 baseline。</p>
+            <div class="pipeline">
+              <div class="stage"><strong>Instruction</strong>typed language and clarification turns<small>human input</small></div>
+              <div class="stage"><strong>Schema</strong>intent, object, location, constraints<small>parser</small></div>
+              <div class="stage"><strong>Grounding</strong>scene candidates and object state<small>scene graph</small></div>
+              <div class="stage"><strong>Skill Plan</strong>skill sequence and preconditions<small>planner</small></div>
+              <div class="stage"><strong>Monitor</strong>outcome, failure, recovery, refusal<small>logger</small></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>System architecture</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">评估指标</span>
+            <span>Beyond task success</span>
+          </div>
+          <div>
+            <h2 class="section-title">评估指标：需要能区分“没做成”和“做错了原因”</h2>
+            <p class="section-subtitle">如果只看 task success，无法体现人机协同的核心价值。</p>
+            <div class="metric-grid" style="margin-top: 18px">
+              <div class="metric-card"><strong>Success</strong>任务最终是否完成</div>
+              <div class="metric-card"><strong>Grounding</strong>对象和位置是否匹配</div>
+              <div class="metric-card"><strong>Clarify</strong>该问时是否问，不该问时是否少问</div>
+              <div class="metric-card"><strong>Refusal</strong>unsafe / unsupported 指令是否拒绝</div>
+            </div>
+            <div class="bar-chart">
+              <strong>MVP baseline comparison slots</strong>
+              <div class="bars">
+                <div class="bar-row"><span>Rule/template</span><div class="bar-track"><div class="bar-fill" style="width:54%"></div></div><span>stable</span></div>
+                <div class="bar-row"><span>LLM-only</span><div class="bar-track"><div class="bar-fill" style="width:46%"></div></div><span>risky</span></div>
+                <div class="bar-row"><span>Grounded LLM</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span>target</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Evaluation plan</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">媒体页示例</span>
+            <span>Scene grounding explanation</span>
+          </div>
+          <div class="media-layout">
+            <div class="media-box" data-label="Scene grounding placeholder">
+              <img src="../assets/scene-grounding-placeholder.svg" alt="Scene grounding placeholder">
+            </div>
+            <div class="points">
+              <div>
+                <h2 class="section-title">媒体页示例：用截图讲清 grounding 失败在哪里</h2>
+                <p class="section-subtitle">真实汇报时这里可以替换成 LabUtopia 环境截图、执行视频或关键帧。</p>
+              </div>
+              <div class="point-card"><strong>Object candidates</strong>指令里的 “that beaker” 可能对应多个候选物体。</div>
+              <div class="point-card"><strong>State matters</strong>empty / filled / unknown liquid 会改变是否可执行。</div>
+              <div class="point-card"><strong>Clarification trigger</strong>候选过多或状态未知时不应直接执行。</div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Image / video replacement page</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Related Work</span>
+            <span>How it supports the story</span>
+          </div>
+          <div>
+            <h2 class="section-title">相关工作不是堆论文，而是支撑贡献拆分</h2>
+            <p class="section-subtitle">这页用于组会里快速说明：哪些工作给 baseline，哪些工作定义 gap。</p>
+            <div class="paper-grid" style="margin-top: 18px">
+              <div class="component-card"><strong>SayCan / Inner Monologue</strong>提供 language + affordance + feedback 的 planner baseline 线索。</div>
+              <div class="component-card"><strong>Code as Policies</strong>说明 LLM 可生成结构化策略，但需要环境约束和执行检查。</div>
+              <div class="component-card"><strong>OpenVLA / Octo / pi0</strong>适合作为后续低层 policy baseline，不应放进 MVP 核心路径。</div>
+              <div class="component-card"><strong>Lab safety / ambiguity works</strong>支撑 unsafe refusal 与 clarification 不是附加功能，而是任务定义的一部分。</div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Related work framing</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">需要讨论的问题</span>
+            <span>Advisor / group feedback</span>
+          </div>
+          <div class="discussion-grid">
+            <div>
+              <h2 class="section-title">今天需要讨论：第一版是否纳入 unsafe split?</h2>
+              <p class="section-subtitle">这个决定会影响项目定位：只做 language grounding，还是明确强调 safety-aware collaboration。</p>
+              <div class="callout"><strong>Requested decision</strong>我倾向于纳入小规模 unsafe / unsupported split，但表述限定为 simulated executable safety constraints。</div>
+            </div>
+            <div class="rows">
+              <div class="row-card"><strong>Option A</strong><span>只做 ambiguity clarification，范围更小，风险更低。</span></div>
+              <div class="row-card"><strong>Option B</strong><span>加入 unsafe refusal，贡献更清楚，但需要更严谨定义。</span></div>
+              <div class="row-card"><strong>Need</strong><span>请确认这个 safety framing 是否适合作为第一版论文卖点。</span></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Discussion request</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">下周计划</span>
+            <span>Concrete next steps</span>
+          </div>
+          <div class="agenda-layout">
+            <div>
+              <h2 class="section-title">下周计划：把设计推进到可运行样例和日志</h2>
+              <p class="section-subtitle">目标是产生可被组会检查的 artifacts，而不是继续停留在路线讨论。</p>
+              <div class="callout"><strong>Deliverable next week</strong>一个最小 schema、10 条指令样例、2 个任务模板、一次 grounded planning log。</div>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item"><strong>D1</strong><span>写 instruction schema 和 10 条 typed instruction</span></div>
+              <div class="timeline-item"><strong>D2</strong><span>整理 scene graph 所需最小字段</span></div>
+              <div class="timeline-item"><strong>D3</strong><span>选 2 个 LabUtopia task template 做闭环</span></div>
+              <div class="timeline-item"><strong>D4</strong><span>跑 rule/template 与 LLM-only baseline 草样</span></div>
+              <div class="timeline-item"><strong>D5</strong><span>带日志和失败样例回组会讨论</span></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Next week plan</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../scripts/presentation.js"></script>
+</body>
+</html>

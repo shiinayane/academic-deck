@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Scene grounding placeholder</title>
+  <desc id="desc">A quiet schematic laboratory scene placeholder for the presentation template.</desc>
+  <rect width="1200" height="720" fill="#f8fbfd"/>
+  <rect x="72" y="92" width="1056" height="536" rx="24" fill="#eef4f8" stroke="#c7d2df" stroke-width="3"/>
+  <rect x="136" y="156" width="928" height="360" rx="18" fill="#ffffff" stroke="#d9e1ea" stroke-width="2"/>
+  <rect x="190" y="388" width="820" height="38" rx="8" fill="#dfe8f0"/>
+  <g fill="none" stroke-width="6">
+    <path d="M318 386 L318 284 C318 248 346 220 382 220 C418 220 446 248 446 284 L446 386" stroke="#245da8"/>
+    <path d="M548 386 L548 254 C548 228 568 208 594 208 L680 208 C706 208 726 228 726 254 L726 386" stroke="#268f89"/>
+    <path d="M820 386 L862 238 L904 386" stroke="#aa741e"/>
+  </g>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" fill="#18202a">
+    <text x="190" y="552" font-size="30" font-weight="700">Scene grounding placeholder</text>
+    <text x="190" y="594" font-size="22" fill="#596675">Replace with a real LabUtopia screenshot, figure, or result image.</text>
+  </g>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="700">
+    <rect x="282" y="184" width="112" height="34" rx="17" fill="#e8f0fb"/>
+    <text x="303" y="207" fill="#245da8">beaker</text>
+    <rect x="560" y="166" width="132" height="34" rx="17" fill="#e7f4f2"/>
+    <text x="584" y="189" fill="#268f89">test tube</text>
+    <rect x="806" y="202" width="126" height="34" rx="17" fill="#fff7e8"/>
+    <text x="833" y="225" fill="#aa741e">hazard</text>
+  </g>
+</svg>
