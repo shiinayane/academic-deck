@@ -14,6 +14,7 @@ AcademicDeck is a small static HTML/CSS template for group meeting talks, weekly
 - Explicit browser resolution tiers for compact preview, 1080p, 2K, and 4K.
 - Print/PDF CSS with a 16:9 page target.
 - Structural validation scripts with no external dependencies.
+- Keynote-compatible AcademicDeck theme source in `themes/`.
 
 ## Project Structure
 
@@ -53,6 +54,28 @@ No install step is required for validation because the scripts only use Node.js 
 This repository can be reused with the local `academic-deck-html` skill. Use it when asking Codex to create or revise group meeting HTML decks, research progress reports, paper walkthroughs, or media-heavy academic presentations based on AcademicDeck.
 
 The skill keeps concrete meeting content in `examples/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
+
+## Keynote Theme
+
+Build the Keynote-compatible theme source:
+
+```bash
+npm run build:keynote-theme
+```
+
+Generated file:
+
+```text
+themes/AcademicDeck-Keynote-Theme.pptx
+```
+
+The native Keynote source is also saved at:
+
+```text
+themes/AcademicDeck-Keynote-Theme.key
+```
+
+Use the `.key` file for normal Keynote reuse. Keep the `.pptx` source when you need a portable editable file.
 
 ## Reuse Rules
 

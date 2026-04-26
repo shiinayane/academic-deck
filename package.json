@@ -5,6 +5,7 @@
   "description": "A quiet, reusable HTML presentation template for research group meetings.",
   "type": "module",
   "scripts": {
+    "build:keynote-theme": "node tools/create-keynote-theme.mjs",
     "validate": "node tests/validate-template.mjs && node tests/validate-mock-deck.mjs",
     "validate:template": "node tests/validate-template.mjs",
     "validate:example": "node tests/validate-mock-deck.mjs"
@@ -16,5 +17,8 @@
     "academic",
     "research"
   ],
+  "devDependencies": {
+    "pptxgenjs": "^4.0.1"
+  },
   "license": "MIT"
 }
