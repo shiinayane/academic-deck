@@ -35,5 +35,10 @@ assert(packageJson.scripts["validate:skill"] === "node tests/validate-skill.mjs"
 assert(packageJson.scripts.validate.includes("node tests/validate-skill.mjs"), "Combined validate script should include skill validation");
 assert(readme.includes("npm run install:skill"), "README should document skill installation");
 assert(readme.includes("~/.codex/skills"), "README should document the peer skill install location");
+assert(readme.includes("One-Line Codex Install"), "README should document one-line Codex installation");
+assert(
+  readme.includes("请在当前 AcademicDeck 仓库运行 npm run install:skill，把 academic-deck-html 安装到 ~/.codex/skills。"),
+  "README should include the exact one-line Codex install prompt"
+);
 
 console.log("Skill validation passed.");

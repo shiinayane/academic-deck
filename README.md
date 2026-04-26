@@ -67,6 +67,14 @@ This repository can be reused with the local `academic-deck-html` skill. Use it 
 
 The skill keeps concrete meeting content in `decks/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
 
+### One-Line Codex Install
+
+Give Codex this sentence while it is opened in the AcademicDeck repository:
+
+```text
+请在当前 AcademicDeck 仓库运行 npm run install:skill，把 academic-deck-html 安装到 ~/.codex/skills。
+```
+
 Install the skill into a peer Codex skills directory:
 
 ```bash
