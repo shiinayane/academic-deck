@@ -69,10 +69,10 @@ The skill keeps concrete meeting content in `decks/`, preserves the English reus
 
 ### One-Line Codex Install
 
-Give Codex this sentence while it is opened in the AcademicDeck repository:
+Give Codex this sentence from any workspace:
 
 ```text
-请在当前 AcademicDeck 仓库运行 npm run install:skill，把 academic-deck-html 安装到 ~/.codex/skills。
+Read https://github.com/shiinayane/academic-deck, then install the academic-deck-html skill from that repository into ~/.codex/skills by following its README instructions.
 ```
 
 Install the skill into a peer Codex skills directory:
