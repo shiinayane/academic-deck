@@ -23,7 +23,7 @@ Do not use it for ordinary websites, blog posts, Markdown-only notes, `.pptx` de
 
 ## Repository Contract
 
-Use the current AcademicDeck repository root. If the current working directory is not clearly inside an AcademicDeck repository, ask for the repository path before editing.
+When the current directory is already an AcademicDeck repository, work in that repository. If the user wants a new standalone deck workspace, scaffold it from this skill's bundled templates instead of cloning AcademicDeck.
 
 Expected structure:
 
@@ -41,6 +41,19 @@ README.md
 
 Prefer editing a generated deck for concrete meeting content. Edit `index.html`, `styles.css`, or `scripts/presentation.js` only when reusable template behavior or the visual system itself must change.
 
+## Bundled Templates
+
+The installed skill is self-contained. It includes:
+
+```text
+templates/index.html
+templates/styles.css
+templates/scripts/presentation.js
+templates/assets/scene-grounding-placeholder.svg
+```
+
+Use these files when creating a new AcademicDeck workspace for a user. Copy them into the target directory, then create generated talks under `decks/`.
+
 ## Workflow
 
 1. Confirm the deck type and inputs.
@@ -52,6 +65,7 @@ Prefer editing a generated deck for concrete meeting content. Edit `index.html`,
 2. Choose the right base.
    - New reusable pattern: start from `index.html`.
    - Real meeting deck: create, copy, or adapt an existing file under `decks/`.
+   - New standalone workspace: copy this skill's `templates/` files into the target directory first.
    - Media-heavy discussion: use existing image/video/media grid patterns before inventing a layout.
 
 3. Build slides with existing patterns first.

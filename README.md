@@ -67,6 +67,8 @@ This repository can be reused with the local `academic-deck-html` skill. Use it 
 
 The skill keeps concrete meeting content in `decks/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
 
+The installed skill is self-contained and includes bundled templates for `index.html`, `styles.css`, `scripts/presentation.js`, and required assets. Users do not need to keep a clone of this repository just to generate a new deck after installing the skill.
+
 ### One-Line Codex Install
 
 Give Codex this sentence from any workspace:
