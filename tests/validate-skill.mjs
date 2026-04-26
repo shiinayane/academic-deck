@@ -48,7 +48,7 @@ assert(packageJson.scripts.validate.includes("node tests/validate-skill.mjs"), "
 assert(readme.includes("npm run install:skill"), "README should document skill installation");
 assert(readme.includes("~/.codex/skills"), "README should document the peer skill install location");
 assert(readme.includes("bundled templates"), "README should document self-contained skill templates");
-assert(readme.includes("One-Line Codex Install"), "README should document one-line Codex installation");
+assert(readme.includes("## Install Skill"), "README should expose skill installation near the top");
 assert(
   readme.includes("Read https://github.com/shiinayane/academic-deck, then install the academic-deck-html skill from that repository into ~/.codex/skills by following its README instructions."),
   "README should include the exact English URL-based Codex install prompt"

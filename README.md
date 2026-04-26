@@ -2,50 +2,48 @@
 
 A quiet, reusable HTML presentation template for research group meetings.
 
-AcademicDeck is a small static HTML/CSS template for group meeting talks, weekly research updates, proposal discussions, paper reading, and experiment demos. It is designed to be calm, readable, and easy to reuse without a slide framework or build step.
+AcademicDeck is for weekly research updates, proposal discussions, paper walkthroughs, and experiment demos that need to feel calm, readable, and reusable without a slide framework or build step.
 
-## Features
+![AcademicDeck preview](docs/academicdeck-preview.png)
 
-- Academic Clean visual style: white slide surface, thin borders, restrained shadows, blue + teal identity accents.
-- Full HTML template in `index.html` with neutral English placeholder content.
-- Generated meeting decks in `decks/`.
-- Shared runtime in `scripts/presentation.js` for keyboard navigation, scroll synchronization, and automatic slide numbering.
-- Image, video, before/after, and key-frame media page types.
-- Explicit browser resolution tiers for compact preview, 1080p, 2K, and 4K.
-- Print/PDF CSS with a 16:9 page target.
-- Structural validation scripts with no external dependencies.
-- Keynote-compatible AcademicDeck theme source in `themes/`.
-- Distributable Codex skill in `skills/academic-deck-html/`.
+## Install Skill
 
-## Project Structure
+Use this sentence with Codex from any workspace:
 
 ```text
-.
-├── index.html
-├── styles.css
-├── scripts/
-│   └── presentation.js
-├── assets/
-│   └── scene-grounding-placeholder.svg
-├── decks/
-│   └── labutopia-hrc-weekly.html
-├── tests/
-│   ├── validate-template.mjs
-│   ├── validate-deck.mjs
-│   └── validate-skill.mjs
-├── skills/
-│   └── academic-deck-html/
-│       └── SKILL.md
-├── themes/
-│   ├── AcademicDeck-Keynote-Theme.key
-│   ├── AcademicDeck-Keynote-Theme.pptx
-│   └── README.md
-├── tools/
-│   ├── create-keynote-theme.mjs
-│   └── install-skill.mjs
-├── package.json
-└── README.md
+Read https://github.com/shiinayane/academic-deck, then install the academic-deck-html skill from that repository into ~/.codex/skills by following its README instructions.
 ```
+
+Manual install from a cloned repository:
+
+```bash
+npm run install:skill
+```
+
+Default install location:
+
+```text
+~/.codex/skills/academic-deck-html/
+```
+
+The installed skill is self-contained and includes bundled templates for `index.html`, `styles.css`, `scripts/presentation.js`, and required assets. Users do not need to keep a clone of this repository just to generate a new deck after installing the skill.
+
+Override the install root when needed:
+
+```bash
+ACADEMIC_DECK_SKILL_DIR="$HOME/.agents/skills" npm run install:skill
+```
+
+## What You Get
+
+- **HTML deck template**: `index.html` with neutral English placeholder slides.
+- **Generated deck workspace**: real talks live in `decks/`, not in the reusable template.
+- **Academic Clean visual system**: near-white slide surface, thin borders, restrained shadows, blue + teal identity line.
+- **Responsive presentation sizing**: explicit compact, 1080p, 2K, and 4K tiers.
+- **Shared runtime**: `scripts/presentation.js` handles keyboard navigation, scroll sync, and automatic page markers.
+- **Media-ready layouts**: image, video, before/after, and key-frame slide patterns.
+- **Keynote source**: reusable `.key` and `.pptx` theme sources in `themes/`.
+- **Validation**: structural checks for the template, generated deck, and distributable skill.
 
 ## Quick Start
 
@@ -63,39 +61,54 @@ No install step is required for validation because the scripts only use Node.js 
 
 ## Codex Skill
 
-This repository can be reused with the local `academic-deck-html` skill. Use it when asking Codex to create or revise group meeting HTML decks, research progress reports, paper walkthroughs, or media-heavy academic presentations based on AcademicDeck.
-
-The skill keeps concrete meeting content in `decks/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
-
-The installed skill is self-contained and includes bundled templates for `index.html`, `styles.css`, `scripts/presentation.js`, and required assets. Users do not need to keep a clone of this repository just to generate a new deck after installing the skill.
-
-### One-Line Codex Install
-
-Give Codex this sentence from any workspace:
+This repository distributes the `academic-deck-html` skill:
 
 ```text
-Read https://github.com/shiinayane/academic-deck, then install the academic-deck-html skill from that repository into ~/.codex/skills by following its README instructions.
-```
-
-Install the skill into a peer Codex skills directory:
-
-```bash
-npm run install:skill
-```
-
-Default install location:
-
-```text
-~/.codex/skills/academic-deck-html/SKILL.md
-```
-
-Override the install root when needed:
-
-```bash
-ACADEMIC_DECK_SKILL_DIR="$HOME/.agents/skills" npm run install:skill
+skills/academic-deck-html/
+  SKILL.md
+  templates/
+    index.html
+    styles.css
+    scripts/presentation.js
+    assets/scene-grounding-placeholder.svg
 ```
 
 The repository copy at `skills/academic-deck-html/SKILL.md` is the source of truth. Installed copies are generated from it.
+
+Use the skill when asking Codex to create or revise group meeting HTML decks, research progress reports, paper walkthroughs, or media-heavy academic presentations based on AcademicDeck.
+
+## Project Structure
+
+```text
+.
+├── index.html
+├── styles.css
+├── scripts/
+│   └── presentation.js
+├── assets/
+│   └── scene-grounding-placeholder.svg
+├── decks/
+│   └── labutopia-hrc-weekly.html
+├── docs/
+│   └── academicdeck-preview.png
+├── tests/
+│   ├── validate-template.mjs
+│   ├── validate-deck.mjs
+│   └── validate-skill.mjs
+├── skills/
+│   └── academic-deck-html/
+│       ├── SKILL.md
+│       └── templates/
+├── themes/
+│   ├── AcademicDeck-Keynote-Theme.key
+│   ├── AcademicDeck-Keynote-Theme.pptx
+│   └── README.md
+├── tools/
+│   ├── create-keynote-theme.mjs
+│   └── install-skill.mjs
+├── package.json
+└── README.md
+```
 
 ## Keynote Theme
 

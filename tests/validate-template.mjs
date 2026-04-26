@@ -9,6 +9,7 @@ const requiredFiles = [
   "styles.css",
   "README.md",
   "assets/.gitkeep",
+  "docs/academicdeck-preview.png",
   "decks/labutopia-hrc-weekly.html",
   "scripts/presentation.js"
 ];
@@ -113,6 +114,9 @@ assert(css.includes(".cover-slide"), "Missing cover slide density rules");
 assert(readme.includes("Academic Clean"), "README should document the visual style");
 assert(readme.includes("# AcademicDeck"), "README should use the project name");
 assert(readme.includes("A quiet, reusable HTML presentation template for research group meetings."), "README should include the project tagline");
+assert(readme.includes("![AcademicDeck preview](docs/academicdeck-preview.png)"), "README should show the deck preview near the top");
+assert(readme.indexOf("## Install Skill") > -1, "README should have a top-level install section");
+assert(readme.indexOf("## Install Skill") < readme.indexOf("## What You Get"), "README install section should appear before feature summary");
 assert(readme.includes("Resolution Tiers"), "README should document responsive resolution tiers");
 assert(readme.includes("scripts/presentation.js"), "README should document the shared runtime");
 assert(packageJson.name === "academic-deck", "package.json should use the npm-safe project name");
