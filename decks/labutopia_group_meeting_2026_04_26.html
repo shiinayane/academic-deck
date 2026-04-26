@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LabUtopia Reproduction And HRC Direction</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="deck-shell">
+    <nav class="deck-toolbar" aria-label="Presentation controls">
+      <h1 class="deck-title">LabUtopia Reproduction And HRC Direction</h1>
+      <div class="toolbar-actions">
+        <button class="toolbar-button" type="button" data-action="prev" aria-label="Previous slide">‹</button>
+        <span class="slide-count" id="slide-count">1 / 12</span>
+        <button class="toolbar-button" type="button" data-action="next" aria-label="Next slide">›</button>
+      </div>
+    </nav>
+
+    <div class="slides">
+      <section class="slide cover-slide" id="cover" data-slide-type="cover-summary">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Group Meeting</span>
+            <span>LabUtopia / April 26, 2026</span>
+          </div>
+          <div>
+            <h2 class="cover-title">LabUtopia Reproduction And A Human-Robot Collaboration Direction</h2>
+            <p class="cover-subtitle">A 30-minute update: the xArm reproduction decision, the policy replacement direction, and a compact LabUtopia-HRC proposal.</p>
+            <div class="talk-strip">
+              <div><strong>Part I</strong>What the reproduction taught us about the current xArm control route.</div>
+              <div><strong>Part II</strong>What the HRC idea means, what the literature says, and how to evaluate it.</div>
+              <div><strong>Discussion</strong>Which milestone should be built first.</div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>30-minute research update</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="talk-plan" data-slide-type="progress-snapshot">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Talk Plan</span>
+            <span>30 minutes</span>
+          </div>
+          <div class="two-column">
+            <div>
+              <h2 class="section-title">Two linked updates</h2>
+              <p class="section-subtitle">I will skip the general LabUtopia background and focus on the two decisions that matter for the next sprint.</p>
+              <div class="callout"><strong>Main message</strong>Stop treating the current custom xArm RMPFlow as the main grasping route; use the reproduction findings to motivate a more policy-driven and interaction-aware direction.</div>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item"><strong>0-2 min</strong><span>Agenda and decision framing.</span></div>
+              <div class="timeline-item"><strong>2-14 min</strong><span>RMPFlow failure mode and replacement direction.</span></div>
+              <div class="timeline-item"><strong>14-27 min</strong><span>Compact LabUtopia-HRC idea, related-work takeaway, and MVP slice.</span></div>
+              <div class="timeline-item"><strong>27-30 min</strong><span>Discussion: next milestone and scope cut.</span></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Structure</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="reproduction-goal" data-slide-type="proposal-idea-pitch">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Part I</span>
+            <span>Reproduction objective</span>
+          </div>
+          <div>
+            <h2 class="section-title">Reproduction question: is custom xArm RMPFlow worth keeping?</h2>
+            <p class="section-subtitle">The work focused on whether the current xArm controller path can become a reliable main route for grasping and data collection.</p>
+            <ul class="plain-list">
+              <li><strong>Asset cleanup</strong><span>xArm7 is used with its original gripper, a TCP-centered end-effector frame, and the correct joint assumptions.</span></li>
+              <li><strong>Controller test</strong><span>The RMPFlow-style path was kept first, so the reproduction could tell us whether the current route is fixable.</span></li>
+              <li><strong>Decision target</strong><span>The practical question is not whether RMPFlow can ever move the arm, but whether this custom path should remain the main grasping loop.</span></li>
+            </ul>
+          </div>
+          <div class="footer">
+            <span>Reproduction framing</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="rmpflow-symptom" data-slide-type="metrics-results">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">RMPFlow Finding</span>
+            <span>Observed failure mode</span>
+          </div>
+          <div>
+            <h2 class="section-title">The issue is not just orientation or a slow convergence problem</h2>
+            <p class="section-subtitle">The best position-only runs still stabilize at a wrong equilibrium near 25 cm from the target.</p>
+            <table class="evidence-table">
+              <tbody>
+                <tr><th>Observed symptom</th><td>Position-only runs still converge to a stable wrong basin, with the best error around 0.249 m.</td></tr>
+                <tr><th>What did not fix it</th><td>Longer horizons, orientation removal, default posture scans, damping, joint limits, and RMP parameter sweeps did not produce a robust route.</td></tr>
+                <tr><th>What was ruled out</th><td>The target is reachable by IK, and the URDF TCP position kinematics match the simulated robot.</td></tr>
+              </tbody>
+            </table>
+            <div class="callout" style="margin-top: 18px"><strong>Interpretation</strong>The target is reachable and the task state machine is not the root cause. The failure sits in the custom RMPFlow/Lula configuration and its interaction with default posture and motion-policy parameters.</div>
+          </div>
+          <div class="footer">
+            <span>RMPFlow symptom</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="why-not-rmpflow" data-slide-type="risk-decision">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Decision Evidence</span>
+            <span>Why not keep tuning</span>
+          </div>
+          <div>
+            <h2 class="section-title">Why the current custom RMPFlow is not a good main route</h2>
+            <p class="section-subtitle">The diagnosis ruled out several easy explanations and left us with a configuration basin that is hard to maintain.</p>
+            <ul class="plain-list">
+              <li><strong>Not the task FSM</strong><span>The pick phases expose the issue, but the same target is geometrically reachable.</span></li>
+              <li><strong>Not one bad parameter</strong><span>Collision spheres, default_q, damping, joint limits, target RMP, and axis RMP scans moved behavior locally but did not remove the main failure mode.</span></li>
+              <li><strong>Decision</strong><span>Do not keep investing in raw custom xArm RMPFlow as the main grasping loop. Keep geometry tools for support, but move manipulation toward learned policies.</span></li>
+            </ul>
+          </div>
+          <div class="footer">
+            <span>RMPFlow decision</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="replacement-policy" data-slide-type="next-step-plan">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Controller Direction</span>
+            <span>What replaces RMPFlow</span>
+          </div>
+          <div>
+            <div>
+              <h2 class="section-title">Move the main route toward policy-based execution</h2>
+              <p class="section-subtitle">The reproduction finding is not a failure of the project. It tells us where the engineering effort should go next: keep geometry tools for support, but make policy execution the main route for manipulation.</p>
+              <div class="callout"><strong>Working decision</strong>Use IK / waypoint / Lula planner as controlled support paths, and prepare a new learned-policy path for robust skill execution.</div>
+            </div>
+            <ul class="plain-list">
+              <li><strong>Keep</strong><span>Clean xArm asset assumptions: TCP frame, gripper drive joint, quaternion convention.</span></li>
+              <li><strong>Use</strong><span>IK and waypoint planners for deterministic sanity checks and data generation support.</span></li>
+              <li><strong>Shift</strong><span>Prioritize ACT / Diffusion / remote OpenPI-style policies for manipulation skills.</span></li>
+              <li><strong>Measure</strong><span>Separate planning validity from low-level skill execution success.</span></li>
+            </ul>
+          </div>
+          <div class="footer">
+            <span>Policy direction</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="hrc-proposal" data-slide-type="proposal-idea-pitch">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Part II</span>
+            <span>Start from a plain request</span>
+          </div>
+          <div>
+            <h2 class="section-title">The HRC idea is simple: let a human ask for lab help</h2>
+            <p class="section-subtitle">Not "discover a new material" and not "replace the scientist". The first target is much smaller: a researcher gives a normal instruction, and the robot helps with physical lab work.</p>
+            <div class="quote-panel">
+              <p>"Can you clean the beaker on the left and bring me two test tubes?"</p>
+              <span>A normal sentence for a human, but not a fixed LabUtopia task ID.</span>
+            </div>
+            <ul class="plain-list">
+              <li><strong>Human side</strong><span>The instruction is short, informal, and may be incomplete.</span></li>
+              <li><strong>Robot side</strong><span>The system must turn it into concrete objects, skills, safety decisions, and execution logs.</span></li>
+            </ul>
+          </div>
+          <div class="footer">
+            <span>Plain-language framing</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="related-work-takeaway" data-slide-type="related-work-brief">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Literature Takeaway</span>
+            <span>Concise survey result</span>
+          </div>
+          <div>
+            <h2 class="section-title">The idea is adjacent to active work, but the benchmark gap is still open</h2>
+            <p class="section-subtitle">The survey result should be presented carefully: this is not a completely untouched area, but the exact LabUtopia-HRC package is not already solved.</p>
+            <table class="evidence-table">
+              <tbody>
+                <tr><th>Closest systems</th><td>ORGANA and Yang et al. show natural-language chemistry robot assistants; RoboChemist shows long-horizon safety-compliant chemistry execution.</td></tr>
+                <tr><th>Closest benchmarks</th><td>LABSHIELD / LabSafety Bench cover lab safety reasoning; PARTNR / AmbiK / Ask-to-Clarify cover HRC, ambiguity, and clarification.</td></tr>
+                <tr><th>Missing combination</th><td>No public work clearly combines LabUtopia-style embodied lab simulation with natural-language HRC, ambiguity clarification, safety refusal, execution logs, and standardized baselines.</td></tr>
+                <tr><th>Positioning</th><td>Do not claim "first lab robot assistant"; claim a reproducible benchmark and execution framework for lab HRC.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="footer">
+            <span>Related-work takeaway</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="example-tasks" data-slide-type="related-work-brief">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Why It Is Hard</span>
+            <span>What the robot must decide</span>
+          </div>
+          <div>
+            <h2 class="section-title">A simple request hides several research problems</h2>
+            <p class="section-subtitle">The key is not just language understanding. The robot has to decide whether it understands enough to act safely.</p>
+            <div class="numbered-flow">
+              <div class="flow-line"><span class="num">1</span><div><strong>What is the user asking for?</strong>Clean, fetch, prepare, store, dispose, open, move, or operate a device.</div></div>
+              <div class="flow-line"><span class="num">2</span><div><strong>Which physical object is meant?</strong>"The left beaker" may refer to multiple beakers depending on viewpoint and scene state.</div></div>
+              <div class="flow-line"><span class="num">3</span><div><strong>Is it safe to execute?</strong>Unknown liquid, heat, contamination, fragile glassware, and device state can change the correct response.</div></div>
+              <div class="flow-line"><span class="num">4</span><div><strong>Should the robot ask first?</strong>If the object or safety state is uncertain, asking is better than doing the wrong action.</div></div>
+              <div class="flow-line"><span class="num">5</span><div><strong>Did execution actually work?</strong>The system needs monitoring and recovery, not only a generated plan.</div></div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>HRC decomposition</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="hrc-architecture" data-slide-type="architecture-pipeline">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Why Benchmark</span>
+            <span>Not one number, a standard testbed</span>
+          </div>
+          <div>
+            <h2 class="section-title">Here, "benchmark" means a repeatable way to test the whole loop</h2>
+            <p class="section-subtitle">LabUtopia is already a benchmark because it provides tasks, environments, success conditions, and comparable results. LabUtopia-HRC would add human-language interaction as the thing being tested.</p>
+            <table class="evidence-table">
+              <tbody>
+                <tr><th>Fixed test cases</th><td>Same scenes, same instructions, same object states, same ambiguous and unsafe cases.</td></tr>
+                <tr><th>Comparable systems</th><td>Rule planner, LLM-only, scene-grounded LLM, SayCan-style planner, Code-as-Policies, and policy-based execution.</td></tr>
+                <tr><th>Multiple metrics</th><td>Task success, object grounding, plan validity, clarification quality, unsafe rejection, recovery, and human turns.</td></tr>
+                <tr><th>Why it matters</th><td>It tells us which part fails: language, grounding, safety, planning, low-level control, or recovery.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="footer">
+            <span>Benchmark framing</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="mvp-plan" data-slide-type="next-step-plan">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">MVP</span>
+            <span>2-4 week target</span>
+          </div>
+          <div>
+            <div>
+              <h2 class="section-title">Start narrow: typed instruction, fixed skills, measurable logs</h2>
+              <p class="section-subtitle">The first version should be easy to explain and easy to run: no speech, no open-ended chemistry, no large VLA training dependency.</p>
+              <div class="simple-diagram">
+                <div class="simple-node"><strong>Instruction</strong>Typed user command</div>
+                <div class="simple-node"><strong>Scene</strong>Object aliases and states</div>
+                <div class="simple-node"><strong>Planner</strong>Constrained skill plan</div>
+                <div class="simple-node"><strong>Executor</strong>Controller or policy backend</div>
+                <div class="simple-node"><strong>Evaluator</strong>Logs and metrics</div>
+              </div>
+            </div>
+            <table class="evidence-table">
+              <tbody>
+                <tr><th>Scope</th><td>50-100 episodes across direct, reference, composite, ambiguous, and unsafe commands.</td></tr>
+                <tr><th>Skills</th><td>Pick, place, open, close, clean, and fetch-like tabletop tasks.</td></tr>
+                <tr><th>Baselines</th><td>Rule/template, LLM-only, and scene-grounded planner first.</td></tr>
+                <tr><th>Output</th><td>Failure analysis separated into language, grounding, safety, planning, and execution.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="footer">
+            <span>MVP plan</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="next-meeting" data-slide-type="discussion-request">
+        <div class="slide-frame">
+          <div class="topline">
+            <span class="badge">Next Actions</span>
+            <span>Discussion request</span>
+          </div>
+          <div>
+            <div>
+              <h2 class="section-title">Decision requested from the group</h2>
+              <p class="section-subtitle">Should the next milestone focus on a compact LabUtopia-HRC benchmark definition, or on policy replacement experiments first?</p>
+              <div class="callout"><strong>My recommendation</strong>Define the benchmark and evaluator first, while keeping the new policy route as an execution backend rather than the whole project identity.</div>
+            </div>
+            <table class="evidence-table">
+              <tbody>
+                <tr><th>Option A</th><td>Benchmark-first: schema, tasks, metrics, and three planner baselines.</td></tr>
+                <tr><th>Option B</th><td>Policy-first: replace RMPFlow and evaluate manipulation success.</td></tr>
+                <tr><th>Proposed compromise</th><td>Minimal policy backend plus benchmark wrapper, with planning and execution metrics separated.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="footer">
+            <span>Group discussion</span>
+            <span class="slide-page"></span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <script src="../scripts/presentation.js"></script>
+</body>
+</html>
