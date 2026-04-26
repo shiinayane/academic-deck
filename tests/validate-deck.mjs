@@ -31,8 +31,8 @@ for (const phrase of requiredPhrases) {
 
 const slideCount = (html.match(/class="slide"/g) ?? []).length;
 assert(slideCount >= 9, `Expected at least 9 slides, found ${slideCount}`);
-assert(html.includes('href="../styles.css"'), "Generated deck should reuse parent styles.css");
-assert(html.includes('src="../scripts/presentation.js"'), "Generated deck should reuse shared runtime");
+assert(html.includes('href="../styles.css?v='), "Generated deck should reuse parent styles.css");
+assert(html.includes('src="../scripts/presentation.js?v='), "Generated deck should reuse shared runtime");
 assert(html.includes("../assets/scene-grounding-placeholder.svg"), "Generated deck should use local media placeholder");
 assert(!html.includes("document.querySelector"), "Generated deck should not inline runtime logic");
 assert(html.includes("slide-page"), "Generated deck should use auto page number markers");

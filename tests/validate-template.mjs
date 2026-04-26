@@ -82,6 +82,14 @@ function cardBlockCount(source) {
   return (source.match(/class="[^"]*\b(?:status|metric|row|component|point|appendix)-card\b/g) ?? []).length;
 }
 
+function assertVersionedAsset(source, path, label) {
+  const escapedPath = path.replaceAll(".", "\\.").replaceAll("/", "\\/");
+  assert(
+    new RegExp(`${escapedPath}\\?v=[0-9]{8}-[a-z0-9-]+`).test(source),
+    `${label} should version ${path} to avoid stale GitHub Pages assets`
+  );
+}
+
 for (const slide of requiredSlides) {
   assert(
     html.includes(`data-slide-type="${slide}"`),
@@ -110,13 +118,19 @@ assert(cardBlockCount(bundledTemplateHtml) <= 8, `Bundled template should avoid 
 assert(html.includes("<video controls preload=\"metadata\""), "Missing native video example");
 assert(html.includes("assets/demo-execution.mp4"), "Missing local video asset example");
 assert(html.includes("assets/scene-grounding-placeholder.svg"), "Missing local image asset example");
+assertVersionedAsset(html, "styles.css", "Root template");
+assertVersionedAsset(html, "scripts/presentation.js", "Root template");
+assertVersionedAsset(deckHtml, "../styles.css", "Generated deck");
+assertVersionedAsset(deckHtml, "../scripts/presentation.js", "Generated deck");
+assertVersionedAsset(bundledTemplateHtml, "styles.css", "Bundled template");
+assertVersionedAsset(bundledTemplateHtml, "scripts/presentation.js", "Bundled template");
 assert(html.includes("<title>Academic Clean Presentation Template</title>"), "Root index should be the English template");
 assert(html.includes("Presentation Title"), "Root template should use neutral placeholder content");
 assert(!html.includes("LabUtopia-HRC"), "Root template should not contain project-specific content");
 assert(!html.includes("本周结论"), "Root template should not contain generated deck content");
 assert(!html.includes("play-mark"), "Real video slides should not include a play overlay");
-assert(html.includes('src="scripts/presentation.js"'), "Root template should use shared runtime script");
-assert(deckHtml.includes('src="../scripts/presentation.js"'), "Generated deck should use shared runtime script");
+assert(html.includes('src="scripts/presentation.js?v='), "Root template should use shared runtime script");
+assert(deckHtml.includes('src="../scripts/presentation.js?v='), "Generated deck should use shared runtime script");
 assert(!html.includes("document.querySelector"), "Root template should not inline deck runtime code");
 assert(runtime.includes("IntersectionObserver"), "Slide navigation should sync with manual scroll");
 assert(runtime.includes("slide-page"), "Runtime should populate slide footer page numbers");
