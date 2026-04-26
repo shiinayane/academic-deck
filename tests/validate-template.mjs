@@ -5,6 +5,7 @@ const root = new URL("..", import.meta.url).pathname;
 const requiredFiles = [
   ".gitignore",
   "index.html",
+  "LICENSE",
   "package.json",
   "styles.css",
   "README.md",
@@ -60,6 +61,7 @@ for (const file of requiredFiles) {
 const html = readFileSync(join(root, "index.html"), "utf8");
 const css = readFileSync(join(root, "styles.css"), "utf8");
 const readme = readFileSync(join(root, "README.md"), "utf8");
+const license = readFileSync(join(root, "LICENSE"), "utf8");
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const runtime = readFileSync(join(root, "scripts/presentation.js"), "utf8");
 const deckHtml = readFileSync(join(root, "decks/labutopia-hrc-weekly.html"), "utf8");
@@ -119,6 +121,9 @@ assert(readme.indexOf("## Install Skill") > -1, "README should have a top-level 
 assert(readme.indexOf("## Install Skill") < readme.indexOf("## What You Get"), "README install section should appear before feature summary");
 assert(readme.includes("Resolution Tiers"), "README should document responsive resolution tiers");
 assert(readme.includes("scripts/presentation.js"), "README should document the shared runtime");
+assert(readme.includes("MIT License"), "README should document the license");
+assert(license.includes("MIT License"), "LICENSE should contain MIT license text");
+assert(license.includes("Copyright (c) 2026 shiinayane"), "LICENSE should contain copyright holder");
 assert(packageJson.name === "academic-deck", "package.json should use the npm-safe project name");
 assert(packageJson.scripts.validate === "node tests/validate-template.mjs && node tests/validate-deck.mjs && node tests/validate-skill.mjs", "package.json should provide a combined validate script");
 assert(packageJson.scripts["validate:deck"] === "node tests/validate-deck.mjs", "package.json should provide a deck validation script");

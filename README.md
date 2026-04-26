@@ -245,3 +245,7 @@ npm run validate:skill
 ```
 
 The validators check required files, slide types, local asset references, responsive tiers, print rules, shared runtime usage, generated deck structure, and the distributable skill contract.
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
