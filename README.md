@@ -48,6 +48,12 @@ npm run validate
 
 No install step is required for validation because the scripts only use Node.js built-in modules.
 
+## Codex Skill
+
+This repository can be reused with the local `academic-deck-html` skill. Use it when asking Codex to create or revise group meeting HTML decks, research progress reports, paper walkthroughs, or media-heavy academic presentations based on AcademicDeck.
+
+The skill keeps concrete meeting content in `examples/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
+
 ## Reuse Rules
 
 Keep each slide in this shape:
