@@ -5,6 +5,14 @@
   const nextButton = document.querySelector('[data-action="next"]');
   let index = 0;
 
+  function scrollSafeArea() {
+    const rawValue = getComputedStyle(document.documentElement)
+      .getPropertyValue("--scroll-safe-area")
+      .trim();
+    const parsed = Number.parseFloat(rawValue);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
   function formatPageNumber(page, total) {
     const width = String(total).length;
     return `${String(page).padStart(width, "0")} / ${total}`;
@@ -20,7 +28,11 @@
 
   function showSlide(nextIndex) {
     setCurrentSlide(nextIndex);
-    slides[index].scrollIntoView({ behavior: "smooth", block: "start" });
+    const targetTop = slides[index].getBoundingClientRect().top + window.scrollY - scrollSafeArea();
+    window.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: "auto"
+    });
   }
 
   function populateSlidePages() {

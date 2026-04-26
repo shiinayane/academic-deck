@@ -9,6 +9,7 @@
   --deck-title-size: 18px;
   --toolbar-button-size: 38px;
   --toolbar-button-font: 14px;
+  --scroll-safe-area: 90px;
   --meta-size: 12px;
   --badge-size: 12px;
   --badge-height: 25px;
@@ -46,7 +47,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  scroll-padding-top: var(--scroll-safe-area);
 }
 
 body {
@@ -125,6 +127,7 @@ body {
 .slide {
   aspect-ratio: 16 / 9;
   position: relative;
+  scroll-margin-top: var(--scroll-safe-area);
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
@@ -594,6 +597,7 @@ body {
     --deck-title-size: 20px;
     --toolbar-button-size: 44px;
     --toolbar-button-font: 17px;
+    --scroll-safe-area: 96px;
     --meta-size: 14px;
     --badge-size: 13px;
     --badge-height: 29px;
@@ -706,6 +710,7 @@ body {
     --deck-title-size: 23px;
     --toolbar-button-size: 50px;
     --toolbar-button-font: 19px;
+    --scroll-safe-area: 120px;
     --meta-size: 16px;
     --badge-size: 15px;
     --badge-height: 33px;
@@ -749,6 +754,7 @@ body {
     --deck-title-size: 32px;
     --toolbar-button-size: 68px;
     --toolbar-button-font: 26px;
+    --scroll-safe-area: 168px;
     --meta-size: 23px;
     --badge-size: 21px;
     --badge-height: 46px;

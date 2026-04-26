@@ -91,6 +91,9 @@ assert(exampleHtml.includes('src="../scripts/presentation.js"'), "Example deck s
 assert(!html.includes("document.querySelector"), "Root template should not inline deck runtime code");
 assert(runtime.includes("IntersectionObserver"), "Slide navigation should sync with manual scroll");
 assert(runtime.includes("slide-page"), "Runtime should populate slide footer page numbers");
+assert(runtime.includes("getPropertyValue(\"--scroll-safe-area\")"), "Runtime should read the CSS scroll safe area");
+assert(runtime.includes("window.scrollTo"), "Runtime should use explicit safe-area scrolling");
+assert(runtime.includes('behavior: "auto"'), "Runtime slide navigation should avoid smooth-scroll intermediate states");
 assert(!html.includes("http://") && !html.includes("https://"), "Template should not load remote assets");
 assert(css.includes("@media print"), "Missing print CSS");
 assert(css.includes("@page"), "Missing explicit print page size");
@@ -101,6 +104,10 @@ assert(css.includes("@media (min-width: 3000px)"), "Missing 4K presentation CSS 
 assert(css.includes("--slide-max: 1500px"), "Missing 1080p slide width token");
 assert(css.includes("--slide-max: 1880px"), "Missing 2K slide width token");
 assert(css.includes("--slide-max: 3000px"), "Missing 4K slide width token");
+assert(css.includes("--scroll-safe-area:"), "Missing scroll safe-area token");
+assert(css.includes("scroll-behavior: auto"), "Presentation navigation should use deterministic scroll behavior");
+assert(css.includes("scroll-padding-top: var(--scroll-safe-area)"), "Missing document scroll safe area");
+assert(css.includes("scroll-margin-top: var(--scroll-safe-area)"), "Missing slide scroll safe area");
 assert(css.includes("\n.slide-frame > :nth-child(2)"), "Missing slide body vertical placement rule");
 assert(css.includes(".cover-slide"), "Missing cover slide density rules");
 assert(readme.includes("Academic Clean"), "README should document the visual style");
