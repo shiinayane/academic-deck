@@ -6,9 +6,11 @@
   "type": "module",
   "scripts": {
     "build:keynote-theme": "node tools/create-keynote-theme.mjs",
-    "validate": "node tests/validate-template.mjs && node tests/validate-deck.mjs",
+    "install:skill": "node tools/install-skill.mjs",
+    "validate": "node tests/validate-template.mjs && node tests/validate-deck.mjs && node tests/validate-skill.mjs",
     "validate:template": "node tests/validate-template.mjs",
-    "validate:deck": "node tests/validate-deck.mjs"
+    "validate:deck": "node tests/validate-deck.mjs",
+    "validate:skill": "node tests/validate-skill.mjs"
   },
   "keywords": [
     "presentation",

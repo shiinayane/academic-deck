@@ -116,7 +116,7 @@ assert(readme.includes("A quiet, reusable HTML presentation template for researc
 assert(readme.includes("Resolution Tiers"), "README should document responsive resolution tiers");
 assert(readme.includes("scripts/presentation.js"), "README should document the shared runtime");
 assert(packageJson.name === "academic-deck", "package.json should use the npm-safe project name");
-assert(packageJson.scripts.validate === "node tests/validate-template.mjs && node tests/validate-deck.mjs", "package.json should provide a combined validate script");
+assert(packageJson.scripts.validate === "node tests/validate-template.mjs && node tests/validate-deck.mjs && node tests/validate-skill.mjs", "package.json should provide a combined validate script");
 assert(packageJson.scripts["validate:deck"] === "node tests/validate-deck.mjs", "package.json should provide a deck validation script");
 
 console.log("Presentation template validation passed.");

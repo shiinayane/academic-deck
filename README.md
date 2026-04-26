@@ -15,6 +15,7 @@ AcademicDeck is a small static HTML/CSS template for group meeting talks, weekly
 - Print/PDF CSS with a 16:9 page target.
 - Structural validation scripts with no external dependencies.
 - Keynote-compatible AcademicDeck theme source in `themes/`.
+- Distributable Codex skill in `skills/academic-deck-html/`.
 
 ## Project Structure
 
@@ -30,13 +31,18 @@ AcademicDeck is a small static HTML/CSS template for group meeting talks, weekly
 │   └── labutopia-hrc-weekly.html
 ├── tests/
 │   ├── validate-template.mjs
-│   └── validate-deck.mjs
+│   ├── validate-deck.mjs
+│   └── validate-skill.mjs
+├── skills/
+│   └── academic-deck-html/
+│       └── SKILL.md
 ├── themes/
 │   ├── AcademicDeck-Keynote-Theme.key
 │   ├── AcademicDeck-Keynote-Theme.pptx
 │   └── README.md
 ├── tools/
-│   └── create-keynote-theme.mjs
+│   ├── create-keynote-theme.mjs
+│   └── install-skill.mjs
 ├── package.json
 └── README.md
 ```
@@ -60,6 +66,26 @@ No install step is required for validation because the scripts only use Node.js 
 This repository can be reused with the local `academic-deck-html` skill. Use it when asking Codex to create or revise group meeting HTML decks, research progress reports, paper walkthroughs, or media-heavy academic presentations based on AcademicDeck.
 
 The skill keeps concrete meeting content in `decks/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
+
+Install the skill into a peer Codex skills directory:
+
+```bash
+npm run install:skill
+```
+
+Default install location:
+
+```text
+~/.codex/skills/academic-deck-html/SKILL.md
+```
+
+Override the install root when needed:
+
+```bash
+ACADEMIC_DECK_SKILL_DIR="$HOME/.agents/skills" npm run install:skill
+```
+
+The repository copy at `skills/academic-deck-html/SKILL.md` is the source of truth. Installed copies are generated from it.
 
 ## Keynote Theme
 
@@ -192,6 +218,7 @@ Run checks individually:
 ```bash
 npm run validate:template
 npm run validate:deck
+npm run validate:skill
 ```
 
-The validators check required files, slide types, local asset references, responsive tiers, print rules, shared runtime usage, and generated deck structure.
+The validators check required files, slide types, local asset references, responsive tiers, print rules, shared runtime usage, generated deck structure, and the distributable skill contract.
