@@ -8,7 +8,7 @@ AcademicDeck is a small static HTML/CSS template for group meeting talks, weekly
 
 - Academic Clean visual style: white slide surface, thin borders, restrained shadows, blue + teal identity accents.
 - Full HTML template in `index.html` with neutral English placeholder content.
-- Concrete example deck in `examples/labutopia-hrc-weekly.html`.
+- Generated meeting decks in `decks/`.
 - Shared runtime in `scripts/presentation.js` for keyboard navigation, scroll synchronization, and automatic slide numbering.
 - Image, video, before/after, and key-frame media page types.
 - Explicit browser resolution tiers for compact preview, 1080p, 2K, and 4K.
@@ -26,18 +26,24 @@ AcademicDeck is a small static HTML/CSS template for group meeting talks, weekly
 │   └── presentation.js
 ├── assets/
 │   └── scene-grounding-placeholder.svg
-├── examples/
+├── decks/
 │   └── labutopia-hrc-weekly.html
 ├── tests/
 │   ├── validate-template.mjs
-│   └── validate-mock-deck.mjs
+│   └── validate-deck.mjs
+├── themes/
+│   ├── AcademicDeck-Keynote-Theme.key
+│   ├── AcademicDeck-Keynote-Theme.pptx
+│   └── README.md
+├── tools/
+│   └── create-keynote-theme.mjs
 ├── package.json
 └── README.md
 ```
 
 ## Quick Start
 
-1. Duplicate `index.html` for a new talk.
+1. Duplicate `index.html` into `decks/` for a new talk.
 2. Replace the placeholder text while keeping the slide structure.
 3. Put local images and videos in `assets/`.
 4. Open the copied HTML file directly in a browser.
@@ -53,7 +59,7 @@ No install step is required for validation because the scripts only use Node.js 
 
 This repository can be reused with the local `academic-deck-html` skill. Use it when asking Codex to create or revise group meeting HTML decks, research progress reports, paper walkthroughs, or media-heavy academic presentations based on AcademicDeck.
 
-The skill keeps concrete meeting content in `examples/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
+The skill keeps concrete meeting content in `decks/`, preserves the English reusable template in `index.html`, and requires `npm run validate` before completion.
 
 ## Keynote Theme
 
@@ -109,7 +115,7 @@ If your deck is copied next to `index.html`, keep:
 <script src="scripts/presentation.js"></script>
 ```
 
-If your deck lives under `examples/`, use:
+If your deck lives under `decks/`, use:
 
 ```html
 <script src="../scripts/presentation.js"></script>
@@ -185,7 +191,7 @@ Run checks individually:
 
 ```bash
 npm run validate:template
-npm run validate:example
+npm run validate:deck
 ```
 
-The validators check required files, slide types, local asset references, responsive tiers, print rules, shared runtime usage, and example deck structure.
+The validators check required files, slide types, local asset references, responsive tiers, print rules, shared runtime usage, and generated deck structure.

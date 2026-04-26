@@ -9,7 +9,7 @@ const requiredFiles = [
   "styles.css",
   "README.md",
   "assets/.gitkeep",
-  "examples/labutopia-hrc-weekly.html",
+  "decks/labutopia-hrc-weekly.html",
   "scripts/presentation.js"
 ];
 
@@ -61,7 +61,7 @@ const css = readFileSync(join(root, "styles.css"), "utf8");
 const readme = readFileSync(join(root, "README.md"), "utf8");
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const runtime = readFileSync(join(root, "scripts/presentation.js"), "utf8");
-const exampleHtml = readFileSync(join(root, "examples/labutopia-hrc-weekly.html"), "utf8");
+const deckHtml = readFileSync(join(root, "decks/labutopia-hrc-weekly.html"), "utf8");
 
 for (const slide of requiredSlides) {
   assert(
@@ -84,10 +84,10 @@ assert(html.includes("assets/scene-grounding-placeholder.svg"), "Missing local i
 assert(html.includes("<title>Academic Clean Presentation Template</title>"), "Root index should be the English template");
 assert(html.includes("Presentation Title"), "Root template should use neutral placeholder content");
 assert(!html.includes("LabUtopia-HRC"), "Root template should not contain project-specific content");
-assert(!html.includes("本周结论"), "Root template should not contain Chinese mock content");
+assert(!html.includes("本周结论"), "Root template should not contain generated deck content");
 assert(!html.includes("play-mark"), "Real video slides should not include a play overlay");
 assert(html.includes('src="scripts/presentation.js"'), "Root template should use shared runtime script");
-assert(exampleHtml.includes('src="../scripts/presentation.js"'), "Example deck should use shared runtime script");
+assert(deckHtml.includes('src="../scripts/presentation.js"'), "Generated deck should use shared runtime script");
 assert(!html.includes("document.querySelector"), "Root template should not inline deck runtime code");
 assert(runtime.includes("IntersectionObserver"), "Slide navigation should sync with manual scroll");
 assert(runtime.includes("slide-page"), "Runtime should populate slide footer page numbers");
@@ -116,6 +116,7 @@ assert(readme.includes("A quiet, reusable HTML presentation template for researc
 assert(readme.includes("Resolution Tiers"), "README should document responsive resolution tiers");
 assert(readme.includes("scripts/presentation.js"), "README should document the shared runtime");
 assert(packageJson.name === "academic-deck", "package.json should use the npm-safe project name");
-assert(packageJson.scripts.validate === "node tests/validate-template.mjs && node tests/validate-mock-deck.mjs", "package.json should provide a combined validate script");
+assert(packageJson.scripts.validate === "node tests/validate-template.mjs && node tests/validate-deck.mjs", "package.json should provide a combined validate script");
+assert(packageJson.scripts["validate:deck"] === "node tests/validate-deck.mjs", "package.json should provide a deck validation script");
 
 console.log("Presentation template validation passed.");

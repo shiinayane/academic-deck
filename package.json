@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "build:keynote-theme": "node tools/create-keynote-theme.mjs",
-    "validate": "node tests/validate-template.mjs && node tests/validate-mock-deck.mjs",
+    "validate": "node tests/validate-template.mjs && node tests/validate-deck.mjs",
     "validate:template": "node tests/validate-template.mjs",
-    "validate:example": "node tests/validate-mock-deck.mjs"
+    "validate:deck": "node tests/validate-deck.mjs"
   },
   "keywords": [
     "presentation",
