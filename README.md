@@ -1,14 +1,19 @@
-# AcademicDeck
+# Academic Deck
 
 A quiet, reusable HTML presentation template for research group meetings.
 
 AcademicDeck is for weekly research updates, proposal discussions, paper walkthroughs, and experiment demos that need to feel calm, readable, and reusable without a slide framework or build step.
 
+> [!TIP]
+> Live Demo: https://www.shiinayane.com/academic-deck/
+> 
+> Example Deck: https://www.shiinayane.com/academic-deck/decks/labutopia-hrc-weekly.html
+
 ![AcademicDeck preview](docs/academicdeck-preview.png)
 
 ## Install Skill
 
-Use this sentence with Codex from any workspace:
+**(Recommended)** Use this sentence with Codex from any workspace:
 
 ```text
 Read https://github.com/shiinayane/academic-deck, then install the academic-deck-html skill from that repository into ~/.codex/skills by following its README instructions.
