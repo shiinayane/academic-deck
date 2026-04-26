@@ -1,4 +1,4 @@
-# Academic Deck
+# AcademicDeck
 
 A quiet, reusable HTML presentation template for research group meetings.
 

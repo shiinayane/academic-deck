@@ -65,6 +65,22 @@ const license = readFileSync(join(root, "LICENSE"), "utf8");
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const runtime = readFileSync(join(root, "scripts/presentation.js"), "utf8");
 const deckHtml = readFileSync(join(root, "decks/labutopia-hrc-weekly.html"), "utf8");
+const bundledTemplateHtml = readFileSync(join(root, "skills/academic-deck-html/templates/index.html"), "utf8");
+const bundledTemplateCss = readFileSync(join(root, "skills/academic-deck-html/templates/styles.css"), "utf8");
+
+const hierarchyPrimitives = [
+  "claim-layout",
+  "evidence-strip",
+  "metric-strip",
+  "annotation-list",
+  "comparison-table",
+  "decision-table",
+  "timeline-lane"
+];
+
+function cardBlockCount(source) {
+  return (source.match(/class="[^"]*\b(?:status|metric|row|component|point|appendix)-card\b/g) ?? []).length;
+}
 
 for (const slide of requiredSlides) {
   assert(
@@ -80,6 +96,16 @@ for (const token of requiredCssTokens) {
 for (const asset of requiredAssets) {
   assert(existsSync(join(root, asset)), `Missing required asset: ${asset}`);
 }
+
+for (const primitive of hierarchyPrimitives) {
+  assert(html.includes(primitive), `Missing hierarchy primitive in root template: ${primitive}`);
+  assert(css.includes(`.${primitive}`), `Missing CSS for hierarchy primitive: ${primitive}`);
+  assert(bundledTemplateHtml.includes(primitive), `Missing hierarchy primitive in bundled template: ${primitive}`);
+  assert(bundledTemplateCss.includes(`.${primitive}`), `Missing bundled CSS for hierarchy primitive: ${primitive}`);
+}
+
+assert(cardBlockCount(html) <= 8, `Root template should avoid card-heavy patterns; found ${cardBlockCount(html)} card blocks`);
+assert(cardBlockCount(bundledTemplateHtml) <= 8, `Bundled template should avoid card-heavy patterns; found ${cardBlockCount(bundledTemplateHtml)} card blocks`);
 
 assert(html.includes("<video controls preload=\"metadata\""), "Missing native video example");
 assert(html.includes("assets/demo-execution.mp4"), "Missing local video asset example");
